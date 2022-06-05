@@ -19,7 +19,8 @@ if (isset($_POST['author'])) $author = $_POST['author'];
   else $author = 'Джозеф Конрад';
 
   print "<table border ='1'>";
-    print " <tr><td><b>Назва</td><td><b>ISBN</td><td><b>Рік</td><td><b>Видавництво</td><td><b>Кількість сторінок</td></tr>";
+    $AuthorStorage = " <tr><th>Назва</th><th>ISBN</th><th>Рік</th><th>Видавництво</th><th>Кількість сторінок</th></tr>";
+  //  print $AuthorStorage;
     $coll=$tbl->find(["authors"=>$author],["projection"=>["_id"=>0]]);
           
     foreach ($coll as $col) {
@@ -28,9 +29,13 @@ if (isset($_POST['author'])) $author = $_POST['author'];
       $yea=$col['year'];
       $pub=$col['publisher'];
       $qua=$col['quantity'];
-      print " <tr><td>$nam</td><td>$isb</td><td>$yea</td><td>$pub</td><td>$qua</td></tr>";
-    
+      $AuthorStorage=$AuthorStorage." <tr><td>$nam</td><td>$isb</td><td>$yea</td><td>$pub</td><td>$qua</td></tr>";
+     
     }
+    print $AuthorStorage;
+    print"<script>localStorage.setItem('$author','$AuthorStorage')</script>";
+    
+
 ?>
 <input type="button" value="Повернутися" onclick="history.back();return false;" />
 </body>

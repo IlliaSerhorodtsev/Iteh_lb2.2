@@ -19,7 +19,7 @@ if (isset($_POST['publisher'])) $author = $_POST['publisher'];
   else $author = 'Джозеф Конрад';
 
   print "<table border ='1'>";
-    print " <tr><td><b>Назва</td><td><b>ISBN</td><td><b>Рік</td><td><b>Видавництво</td><td><b>Кількість сторінок</td></tr>";
+  $publisherStorage = " <tr><th>Назва</th><th>ISBN</th><th>Рік</th><th>Видавництво</th><th>Кількість сторінок</th></tr>";
     $coll=$tbl->find(["publisher"=>$author],["projection"=>["_id"=>0]]);
           
     foreach ($coll as $col) {
@@ -33,11 +33,13 @@ if (isset($_POST['publisher'])) $author = $_POST['publisher'];
       if (isset($col['quantity']))$qua=$col['quantity'];
         else $qua = '-';
    
-      print " <tr><td>$nam</td><td>$isb</td><td>$yea</td><td>$pub</td><td>$qua</td></tr>";
+        $publisherStorage = $publisherStorage. " <tr><td>$nam</td><td>$isb</td><td>$yea</td><td>$pub</td><td>$qua</td></tr>";
     
     }
+    print $publisherStorage;
+    print"<script>localStorage.setItem('$author','$publisherStorage')</script>";
+    
 ?>
 <input type="button" value="Повернутися" onclick="history.back();return false;" />
 </body>
 </html>
-<!--  -->

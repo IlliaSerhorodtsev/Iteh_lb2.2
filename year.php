@@ -20,16 +20,19 @@
    $fyear = $_POST['FYear'];
    $syear = $_POST['SYear'];
   print "<table border ='1'>";
-    print " <tr><td><b>Назва</td><td><b>Рік</td><td><b>Вид</td></tr>";
+  $yearStorage= " <tr><th>Назва</th><th>Рік</th><th>Вид</th></tr>";
     $coll=$tbl->find(["year"=>['$gte' => (int)$fyear,'$lte' => (int)$syear]]);
           
     foreach ($coll as $col) {
       $nam=$col['name'];
       $yea=$col['year'];
       $type=$col['type'];
-      print " <tr><td>$nam</td><td>$yea</td><td>$type</td></tr>";
-    
+      $yearStorage=$yearStorage." <tr><td>$nam</td><td>$yea</td><td>$type</td></tr>";
     }
+    print $yearStorage;
+    $year=$fyear.$syear;
+    print"<script>localStorage.setItem('$year','$yearStorage')</script>";
+    
 ?>
 <input type="button" value="Повернутися" onclick="history.back();return false;" />
 </body>
